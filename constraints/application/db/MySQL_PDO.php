@@ -9,32 +9,44 @@ class MySQL_PDO implements iDatabase {
 	private $_db = null;
 	static private $instance = null;
 	
-	private function __contruct() {}
+	// $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+	// PDO::ERRMODE_EXCEPTION
 	
+	private function __contruct() {}
+	/**
+	 * usando patrón de diseño Singleton.
+	 * @return MySQL_PDO
+	 */
 	public static function getInstance() {	
 		if (self::$instance == null) {			
 			self::$instance = new MySQL_PDO();			
 		}		
 		return self::$instance;		
 	}
-	
 
-	
+	/*
+	 * Establece conexion con la bd.
+	 */
 	public function conexion() {
 		try {		
 			$this->_db = new PDO($this->_host, $this->_user, $this->_pass);
 			$this->_db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 			
-			
+			//$this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+			//si quiero manejar excepciones ocupo esta opción.
+			$this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
-			//cabecera("Error grave");
+			//ESTO ESTÁ PENDIENTE, EL COMO MANEJAR ESTOS ERRORES.
+			//EVITANDO QUE SE INTERRUMPA LA NAVEGACIÓN EN EL CLIENTE.
 			print "<p>Error: No puede conectarse con la base de datos.</p>\n";
 			print "<p>Error: " . $e->getMessage() . "</p>\n";
-			//pie();
 			exit();
 		}
 	}
-	
+	/**
+	 * @param String $sql la consulta a ejecutar.
+	 *  
+	 */
 	public function select($sql) {		
 		$result = $this->_db->query($sql);
 		if (!$result) {
@@ -45,7 +57,35 @@ class MySQL_PDO implements iDatabase {
 			}
 		}
 	}
-	
+
+	public function deletePrepare($sql,$parametros) {	
+		
+		try {
+			$result = $this->_db->prepare($sql);
+			$result->execute($parametros);
+			
+		} catch (PDOException $e) {
+			echo "<pre>";
+			print_r($e->errorInfo);
+			print "<p>Message: " . $e->getMessage() . "</p>\n";
+			print "<p>Trace: </p>\n";
+			print_r($e->getTrace());
+			echo "</pre>";
+		} 
+		
+		/*
+		 * ORIGINAL
+		 * 
+			if ($result->execute($parametros)) {
+				print "<p>Registro borrado correctamente.</p>\n";
+		    } else {
+				print "<p>Error al borrar el registro.</p>\n";
+		    }
+		 */
+	    
+	    
+	    
+	}	
 	/**
 	 * 
 	 * @param String $sql la consulta preparada usando ?
@@ -62,7 +102,9 @@ class MySQL_PDO implements iDatabase {
 			}
 		}	
 	}
-	
+	/*
+	 * Cierra la conexion con la bd.
+	 */
 	public function close() {
 		$this->_db = null;
 	}

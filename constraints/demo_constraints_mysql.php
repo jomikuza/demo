@@ -44,6 +44,10 @@ WHERE id=?";
 $parametros = array(5);
 $objConn->selectPrepare($sql, $parametros);
 
+$sql = "DELETE FROM demo_pdo.usuario
+WHERE id=?";
+$parametros = array(1);
+$objConn->deletePrepare($sql, $parametros);
 
 //cerrar la conexion si ya se dejó de utilizar.
 $objConn->close();

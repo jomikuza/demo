@@ -5,14 +5,15 @@ interface iDatabase {
 
 	/*
 	 * 
+	public function delete();
 	public function insert($sql);
 	public function update();
-	public function delete();
 	 */
 	
 	
 	//si no es soportada por la bd se declara el método pero sin definir
 	public function selectPrepare($sql, $parametros); 
+	public function deletePrepare($sql,$parametros);
 	public function close();
 }
 ?>
