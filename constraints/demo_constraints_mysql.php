@@ -27,7 +27,7 @@
 </head>
 <body>
 <div class="col_12">Demo integridad referencial en tablas MySQL</div>
-<div class="col_3">Descripión</div>
+<div class="col_3">Descripión del ejemplo a desarrollar</div>
 <div style="clear:both"></div>
 
 <a class="volver" href="javascript:history.back();">Volver</a>
