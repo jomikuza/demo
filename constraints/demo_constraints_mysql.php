@@ -1,3 +1,4 @@
+<?php require_once './application/db/MySQL_PDO.php';?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,18 @@
 <body>
 <div class="col_12">Demo integridad referencial en tablas MySQL</div>
 <div class="col_3">Descripión del ejemplo a desarrollar</div>
-<div style="clear:both"></div>
+<div style="clear:both">
+<?php 
+$objConn = new MySQL_PDO();
+
+
+
+?>
+
+</div>
+
+
+
 
 <a class="volver" href="javascript:history.back();">Volver</a>
 </body>

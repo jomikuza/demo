@@ -1,10 +1,13 @@
 <?php
 interface iDatabase {
-	protected function conexion();
-	protected function select();
-	protected function insert();
-	protected function update();
-	protected function delete();
-	protected function close();
+	public function conexion();
+	public function close();
+	/*
+	 * 
+	public function insert($sql);
+	public function select($sql);
+	public function update();
+	public function delete();
+	 */
 }
 ?>
