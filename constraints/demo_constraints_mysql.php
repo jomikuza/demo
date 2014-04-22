@@ -31,10 +31,22 @@
 <div class="col_3">Descripión del ejemplo a desarrollar</div>
 <div style="clear:both">
 <?php 
-$objConn = new MySQL_PDO();
+//usando Patrón de diseño Singleton
+$objConn = MySQL_PDO::getInstance();
+
+$sql = "SELECT * FROM demo_pdo.usuario";
+$objConn->conexion();
+$objConn->select($sql);
+
+//Ejemplo de consulta parametrizada para obtener datos de una fila por id
+$sql = "SELECT id, nombre, nacimiento FROM demo_pdo.usuario
+WHERE id=?";
+$parametros = array(5);
+$objConn->selectPrepare($sql, $parametros);
 
 
-
+//cerrar la conexion si ya se dejó de utilizar.
+$objConn->close();
 ?>
 
 </div>
