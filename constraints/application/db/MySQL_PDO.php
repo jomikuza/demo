@@ -58,33 +58,15 @@ class MySQL_PDO implements iDatabase {
 		}
 	}
 
-	public function deletePrepare($sql,$parametros) {	
-		
+	public function deletePrepare($sql,$parametros) {			
 		try {
 			$result = $this->_db->prepare($sql);
-			$result->execute($parametros);
-			
-		} catch (PDOException $e) {
-			echo "<pre>";
-			print_r($e->errorInfo);
-			print "<p>Message: " . $e->getMessage() . "</p>\n";
-			print "<p>Trace: </p>\n";
-			print_r($e->getTrace());
-			echo "</pre>";
-		} 
-		
-		/*
-		 * ORIGINAL
-		 * 
-			if ($result->execute($parametros)) {
-				print "<p>Registro borrado correctamente.</p>\n";
-		    } else {
-				print "<p>Error al borrar el registro.</p>\n";
-		    }
-		 */
-	    
-	    
-	    
+			$result->execute($parametros);			
+		} catch (PDOException $e) {			
+			throw $e;			
+		} catch (Exception $ex) {			
+			throw $ex;			
+		} 	    
 	}	
 	/**
 	 * 

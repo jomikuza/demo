@@ -44,10 +44,44 @@ WHERE id=?";
 $parametros = array(5);
 $objConn->selectPrepare($sql, $parametros);
 
-$sql = "DELETE FROM demo_pdo.usuario
-WHERE id=?";
-$parametros = array(1);
-$objConn->deletePrepare($sql, $parametros);
+try {
+	$sql = "DELETE FROM demo_pdo.usuario
+	WHERE id=?";
+	$parametros = array(1);
+	$objConn->deletePrepare($sql, $parametros);
+	
+} catch (PDOException $e) {
+	//MySQL
+	//$e->errorInfo[0] SQLSTATE
+	//$e->errorInfo[1] Error
+	if (($e->errorInfo[0] == 23000) && ($e->errorInfo[1] == 1451)) {
+		echo "<pre>";
+		echo "No puede eliminar este registro; está referenciado en otra tabla.";
+		echo "</pre>";
+	}
+
+
+	/*
+	echo "<pre>";
+	print_r($e->errorInfo);
+	print "<p>Message: " . $e->getMessage() . "</p>\n";
+	print "<p>Trace: </p>\n";
+	print_r($e->getTrace());
+	echo "</pre>";
+	*/
+
+	/*
+	echo "<pre>";
+	echo "PDOException en demo_constraints_mysql.php";
+	print_r($e->errorInfo);
+	echo "</pre>";
+	 */
+} catch (Exception $ex) {
+	echo "<pre>";
+	echo "Exception en demo_constraints_mysql.php";
+	print_r($ex->errorInfo);
+	echo "</pre>";
+}
 
 //cerrar la conexion si ya se dejó de utilizar.
 $objConn->close();
