@@ -48,13 +48,12 @@ class MySQL_PDO implements iDatabase {
 	 *  
 	 */
 	public function select($sql) {		
-		$result = $this->_db->query($sql);
-		if (!$result) {
-			print "<p>Error en la consulta.</p>\n";
-		} else {
-			foreach ($result as $valor) {
-				print "<p>$valor[id] $valor[nombre] $valor[nacimiento]</p>\n";
-			}
+		try {
+			$result = $this->_db->query($sql);
+		} catch (PDOException $e) {
+			throw $e;
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 

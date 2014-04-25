@@ -1,4 +1,7 @@
-<?php require_once './application/db/MySQL_PDO.php';?>
+<?php 
+require_once './application/db/MySQL_PDO.php';
+require_once './application/clases/MyLog.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +48,7 @@ $parametros = array(5);
 $objConn->selectPrepare($sql, $parametros);
 
 try {
-	$sql = "DELETE FROM demo_pdo.usuario
+	$sql = "DELETEs FROM demo_pdo.usuario
 	WHERE id=?";
 	$parametros = array(1);
 	$objConn->deletePrepare($sql, $parametros);
@@ -60,11 +63,12 @@ try {
 		echo "</pre>";
 	}
 
-
+	MyLog::write_mysql_log($e);
+	
+	//print "<p>Message: " . $e->getMessage() . "</p>\n";
 	/*
 	echo "<pre>";
 	print_r($e->errorInfo);
-	print "<p>Message: " . $e->getMessage() . "</p>\n";
 	print "<p>Trace: </p>\n";
 	print_r($e->getTrace());
 	echo "</pre>";
