@@ -60,7 +60,9 @@ class MySQL_PDO implements iDatabase {
 	public function deletePrepare($sql,$parametros) {			
 		try {
 			$result = $this->_db->prepare($sql);
-			$result->execute($parametros);			
+			if ($result->execute($parametros)) {
+				return  $result->rowCount();
+			}			
 		} catch (PDOException $e) {			
 			throw $e;			
 		} catch (Exception $ex) {			
