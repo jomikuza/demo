@@ -1,5 +1,6 @@
 <?php
 class Persona {
+	public $id;
 	public $nombre;
 	public $apellidoP;
 	public $rut;
@@ -21,6 +22,20 @@ class Persona {
 		return json_encode($arrayPersona);
 	}
 	
+	public function getPersonaById($id, $ajax = false) {
+	
+		$this->id = $id;
+		$this->nombre = 'Carla';
+		$this->apellidoP = 'Araya';
+		$this->rut = '12333990';
+		$this->dv = '7';
+		
+		if ($ajax) {
+			return json_encode($this);
+		}else {
+			return $this;			
+		}
+	}
 	
 	
 	

@@ -1,6 +1,6 @@
 <?php
-require_once './application/db/MySQL_PDO.php';
-require_once './application/db/Util.php';
+require_once '../db/MySQL_PDO.php';
+require_once '../db/Util.php';
 
 /**
  * write_mysql_log($message, $db)

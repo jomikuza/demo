@@ -18,6 +18,6 @@ $usr = 'joe';
 $pass = 'password';
 $sql = "SELECT * FROM users WHERE user='$usr' AND password='$pass'";
 
-echo Util::mysql_escape_mimic ( $sql );
+//echo Util::mysql_escape_mimic ( $sql );
 
 ?>
